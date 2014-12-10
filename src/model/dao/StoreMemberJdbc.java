@@ -179,16 +179,86 @@ public class StoreMemberJdbc implements StoreMemberDAO {
 		return result;
 	}
 
+	private static final String UPDATE = 
+			"update StoreMember set storePswd=?,storeJoinDate=?,storePhone=?,imgFileName=?,storeImage=?,"
+			+ "storeEmail=?,storeWebsite=? where storeUsername=?";
 	@Override
 	public StoreMemberBean update(StoreMemberBean bean, InputStream is,
 			long size) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		StoreMemberBean result = null;
+		
+		try {
+			conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+			stmt = conn.prepareStatement(UPDATE);
+
+			stmt.setBytes(1,bean.getStorePswd());
+			java.util.Date storeJoinDate = bean.getStoreJoinDate();
+			if(storeJoinDate!=null) {
+				long temp = storeJoinDate.getTime();
+				stmt.setDate(2, new java.sql.Date(temp));
+			} else {
+				stmt.setDate(2, null);
+			}
+			stmt.setString(3,bean.getStorePhone());
+			stmt.setString(4,bean.getImgFileName());
+			stmt.setBinaryStream(5,is,size);
+			stmt.setString(6,bean.getStoreEmail());
+			stmt.setString(7,bean.getStoreWebsite());
+			stmt.setString(8,bean.getStoreUsername());
+			
+			int i = stmt.executeUpdate();
+			if(i==1){
+				System.out.println("Update Successful!");
+				return bean;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 
+	
+	private static final String DELETE = "delete from StoreMember where storeUsername=?";
 	@Override
-	public boolean delete(String username) {
-		// TODO Auto-generated method stub
+	public boolean delete(String storeUsername) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+			stmt = conn.prepareStatement(DELETE);
+			stmt.setString(1, storeUsername);
+			int i = stmt.executeUpdate();
+			
+			if(i==1){
+				System.out.println("Delete Successful!");
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(stmt!=null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return false;
 	}
 
@@ -203,27 +273,53 @@ public class StoreMemberJdbc implements StoreMemberDAO {
 //		System.out.println(list);
 		
 		//insert
-		StoreMemberBean bean = new StoreMemberBean();
-		File f = null;
-		FileInputStream fis = null;
-			try {
-				f = new File("img/java_duke.jpg");
-				fis = new FileInputStream(f);
-				long length = f.length();		
-			bean.setStoreUsername("Bob3");
-			bean.setStoreJoinDate(new java.util.Date());
-			bean.setStorePhone("0913456789");
-			bean.setStoreEmail("Bob@gmail.com");
-			bean.setImgFileName("Bob.jpg");
-			bean.setStoreWebsite(null);
-			dao.insert(bean,fis,length);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//		StoreMemberBean bean = new StoreMemberBean();
+//		File f = null;
+//		FileInputStream fis = null;
+//			try {
+//				f = new File("img/java_duke.jpg");
+//				fis = new FileInputStream(f);
+//				long length = f.length();		
+//			bean.setStoreUsername("Bob3");
+//			bean.setStoreJoinDate(new java.util.Date());
+//			bean.setStorePhone("0913456789");
+//			bean.setStoreEmail("Bob@gmail.com");
+//			bean.setImgFileName("Bob.jpg");
+//			bean.setStoreWebsite(null);
+//			dao.insert(bean,fis,length);
+//			} catch (FileNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		
+		//update
+//		StoreMemberBean bean = new StoreMemberBean();
+//		File f = null;
+//		FileInputStream fis = null;
+//			try {
+//				f = new File("img/java_duke.jpg");
+//				fis = new FileInputStream(f);
+//				long length = f.length();		
+//			bean.setStoreUsername("Bob3");
+//			bean.setStoreJoinDate(new java.util.Date());
+//			bean.setStorePhone("0913456780");
+//			bean.setStoreEmail("Bob@gmail.com");
+//			bean.setImgFileName("Bob.jpg");
+//			bean.setStoreWebsite(null);
+//			System.out.println(dao.update(bean,fis,length));
+//			} catch (FileNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		
+		//delete
+//		System.out.println(dao.delete("Bob3"));
 	}
 
 }
