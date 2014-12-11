@@ -346,11 +346,12 @@ public class MemberDAOJdbc implements MemberDAO {
 		MemberBean bean = new MemberBean();
 		File f = null;
 		FileInputStream fis = null;
+		long length = 0;
 			
 			try {
 				f = new File("img/java_duke.jpg");
 				fis = new FileInputStream(f);
-				long length = f.length();		
+				length = f.length();		
 			bean.setUsername("Bob4");
 			bean.setPswd("Bob".getBytes());
 			bean.setEmail("Bob@gmail.com");
