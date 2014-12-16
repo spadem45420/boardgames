@@ -221,8 +221,22 @@ public class MemberDAOJdbc implements MemberDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			if(stmt!=null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		
 		
 		return result;
 	}
@@ -241,6 +255,7 @@ public class MemberDAOJdbc implements MemberDAO {
 		try {
 			conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
 			stmt = conn.prepareStatement(UPDATE);
+			
 			stmt.setBytes(1,bean.getPswd());
 			stmt.setString(2,bean.getEmail());
 			stmt.setString(3,bean.getLastname());
@@ -284,8 +299,22 @@ public class MemberDAOJdbc implements MemberDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			if(stmt!=null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		
 		
 		return result;
 	}
@@ -355,15 +384,15 @@ public class MemberDAOJdbc implements MemberDAO {
 			bean.setUsername("Bob4");
 			bean.setPswd("Bob".getBytes());
 			bean.setEmail("Bob@gmail.com");
-			bean.setLastname("Àj«k");
-			bean.setFirstname("±i");
+			bean.setLastname("é®‘å‹ƒ");
+			bean.setFirstname("å¼µ");
 			bean.setGender("man");
 			bean.setNickname("Bob");
 			bean.setBirthday(new java.util.Date());
 			bean.setIdCard("B123456987");
 			bean.setJoinDate(new java.util.Date());
 			bean.setPhone("0988456789");
-			bean.setMemberAddress("·s¥_¥«·s²ø°Ï«ä·½¸ô370«Ñ");
+			bean.setMemberAddress("æ–°åŒ—å¸‚æ–°èŠå€æ€æºè·¯370å··");
 			bean.setImgFileName("java_duke.jpg");
 			dao.insert(bean,fis,length);
 			} catch (FileNotFoundException e) {
@@ -391,15 +420,15 @@ public class MemberDAOJdbc implements MemberDAO {
 //			bean.setUsername("Bob1123");
 //			bean.setPswd("Bob".getBytes());
 //			bean.setEmail("Bob@gmail.com");
-//			bean.setLastname("Àj«k");
-//			bean.setFirstname("ªL");
+//			bean.setLastname("é®‘å‹ƒ");
+//			bean.setFirstname("æ—");
 //			bean.setGender("man");
 //			bean.setNickname("Bob");
 //			bean.setBirthday(new java.util.Date());
 //			bean.setIdCard("B123456987");
 //			bean.setJoinDate(new java.util.Date());
 //			bean.setPhone("0988456789");
-//			bean.setMemberAddress("·s¥_¥«·s²ø°Ï«ä·½¸ô370«Ñ");
+//			bean.setMemberAddress("æ–°åŒ—å¸‚æ–°èŠå€æ€æºè·¯370å··");
 //			bean.setImgFileName("java_duke2.jpg");
 ////			bean.setGroupBan(false);
 ////			bean.setCommentBan(false);
@@ -423,7 +452,7 @@ public class MemberDAOJdbc implements MemberDAO {
 		
 		
 		
-		//¨ú¥X¹Ï¤ù
+		//å–å‡ºåœ–ç‰‡
 //		try {
 //			File f = new File("img/java_duke_out.jpg");
 //			Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);

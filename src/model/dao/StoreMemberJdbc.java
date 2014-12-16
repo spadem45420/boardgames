@@ -273,27 +273,27 @@ public class StoreMemberJdbc implements StoreMemberDAO {
 //		System.out.println(list);
 		
 		//insert
-//		StoreMemberBean bean = new StoreMemberBean();
-//		File f = null;
-//		FileInputStream fis = null;
-//			try {
-//				f = new File("img/java_duke.jpg");
-//				fis = new FileInputStream(f);
-//				long length = f.length();		
-//			bean.setStoreUsername("Bob3");
-//			bean.setStoreJoinDate(new java.util.Date());
-//			bean.setStorePhone("0913456789");
-//			bean.setStoreEmail("Bob@gmail.com");
-//			bean.setImgFileName("Bob.jpg");
-//			bean.setStoreWebsite(null);
-//			dao.insert(bean,fis,length);
-//			} catch (FileNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+		StoreMemberBean bean = new StoreMemberBean();
+		File f = null;
+		FileInputStream fis = null;
+			try {
+				f = new File("img/java_duke.jpg");
+				fis = new FileInputStream(f);
+				long length = f.length();		
+			bean.setStoreUsername("Bob3");
+			bean.setStoreJoinDate(new java.util.Date());
+			bean.setStorePhone("0913456789");
+			bean.setStoreEmail("Bob@gmail.com");
+			bean.setImgFileName("Bob.jpg");
+			bean.setStoreWebsite(null);
+			dao.insert(bean,fis,length);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		//update
 //		StoreMemberBean bean = new StoreMemberBean();
